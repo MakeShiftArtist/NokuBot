@@ -8,7 +8,7 @@ def getCon(config=None,):
             "database": "database.db",
         }
 
-    class abstraction:
+    class abstraction: ## Database class object
 
         def __init__(self):
             self.connection: sqlite3 = sqlite3.connect(
@@ -54,7 +54,7 @@ def createRolesPersist():
     );
     """
 
-def getuserroles(userid: int):
+def getuserroles(userid: int): ## Returns a list of users role ids
     """
     SELECT *
     FROM roles
@@ -65,7 +65,7 @@ def getuserroles(userid: int):
     con.close()
     return [dict(userobject).get("roleid") for userobject in data]
 
-def setuserrole(userid, roles: (list, int)):
+def setuserrole(userid, roles: (list, int)): ## sets a users role or list of roles
     """
     INSERT INTO
     roles VALUES
