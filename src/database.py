@@ -68,12 +68,11 @@ def getuserroles(userid: int): ## Returns a list of users role ids
 def setuserrole(userid, roles: (list, int)): ## sets a users role or list of roles
     """
     INSERT INTO
-    roles VALUES
-    (
+    roles (
         userid,
         roleid,
         assignment
-    )
+    ) VALUES (?,?,?);
     """
     timestamp = round(time.time())
     con = getCon()
@@ -86,4 +85,3 @@ def setuserrole(userid, roles: (list, int)): ## sets a users role or list of rol
     else:
         con.close()
         raise Exception("roles argument must be integer or a list of integers")
-
