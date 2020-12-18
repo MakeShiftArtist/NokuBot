@@ -74,7 +74,7 @@ class Misc(commands.Cog):
         else:
             data = database.getuserroles(member.id)
             if data != []:
-                member.add_roles(self.reactions.verified.role, "Verified")
+                await member.add_roles(self.reactions.verified.role, "Verified")
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
