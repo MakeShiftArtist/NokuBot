@@ -137,9 +137,8 @@ class Misc(commands.Cog):
     @commands.command(
         name="Embed", brief="Creates a custom embed",
         help="Creates a custom embed with a title, description and fields.",
-        usage="[title] <description>\n<field title | field description>"
+        usage="[title] <description>`\n> `<field title | field description>"
         )
-    @commands.is_owner()
     async def send_embed(self, ctx, title=None, *, desc=None):
         try:
             await ctx.message.delete()
@@ -151,12 +150,17 @@ class Misc(commands.Cog):
         if desc is None:
             desc = ""
         extra = desc.split("\n")
-        embed = Embed(
-            title=title,
-            description=extra[0],
-            color=self.colors()
-            )
-
+        try:
+            embed = discord.Embed(
+                title=title,
+                description=extra[0],
+                color=Common_info.blue
+                )
+        except Exception:
+            embed = discord.Embed(
+                title=title,
+                color=Common_info.blue
+                )
         for field in extra[1:]:
             data = re.split(r"((?<!\\)(\s\|\s|\s\||\|\s|\|))", field)
             regex = re.compile(r'(\s\|\s|\s\||\|\s|\|)')
@@ -168,10 +172,14 @@ class Misc(commands.Cog):
                     inline=False
                     )
             else:
-                print(filtered)
                 if filtered[0] == "":
                     filtered[0] = "Field"
-                embed.add_field(name=filtered[0], value="\n".join(filtered[1:]), inline=False)
+                embed.add_field(
+                    name=filtered[0],
+                    value="\n".join(filtered[1:]),
+                    inline=False
+                    )
+        #embed.set_author(name=ctx.author, icon_url=ctx.author.avatar_url)
         embed.set_footer(text=ctx.author)
         return await ctx.send(embed=embed)
 
