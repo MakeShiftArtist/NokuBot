@@ -61,7 +61,7 @@ class Moderation(commands.Cog):
         brief='Bulk deletes messages',
         aliases=['clear'],
         help='Deletes multiple messages at once\n> Defaults to `5`',
-        usage='purge [amount]'
+        usage='<amount>'
         )
     @commands.has_permissions(manage_messages=True)
     @commands.bot_has_permissions(manage_messages=True)
@@ -98,9 +98,10 @@ class Moderation(commands.Cog):
             return
 
     @commands.command(
-        name='Ban', brief='Bans a member',
+        name='Ban',
+        brief='Bans a member',
         help='Bans a member from the server',
-        usage='Ban [@member]'
+        usage='<@member>',
         )
     @commands.guild_only()
     @commands.bot_has_permissions(ban_members=True)
@@ -132,8 +133,10 @@ class Moderation(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.command(
-        name='Unban', brief='Unbans a member',
-        help='Unbans a member from the server', usage='unban [username#1234]'
+        name='Unban',
+        brief='Unbans a member',
+        help='Unbans a member from the server',
+        usage='<username#1234>',
         )
     @commands.guild_only()
     @commands.bot_has_permissions(ban_members=True)
@@ -161,8 +164,8 @@ class Moderation(commands.Cog):
         name='Kick',
         brief='Kicks a member',
         help='Kicks a member from the server',
-        usage='Kick [@member]'
-    )
+        usage='<@member>',
+        )
     @commands.guild_only()
     @commands.bot_has_permissions(kick_members=True)
     @commands.has_permissions(kick_members=True)

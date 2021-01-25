@@ -30,7 +30,7 @@ class HelpObject:
                     value=cog.description,
                     inline=False
                 )
-        embed.set_footer(text="-help <category | command>")
+        embed.set_footer(text=f"{prefix}help <category | command>")
         return embed
 
     async def category(self, ctx, category: str):
@@ -86,7 +86,7 @@ class HelpObject:
                 color=self.color()
             )
             embed.add_field(
-                name="Usage", value=f"-{cmd.usage}"
+                name="Usage", value=f"-{cmd.name} {cmd.usage}"
             )
             embed.set_footer(text=f"In {cmd.cog.qualified_name}")
             return embed
@@ -94,8 +94,8 @@ class HelpObject:
 
 class Help(commands.Cog):
     """
-    > `[arg]` = Required argument
-    > `<arg>` = NOT Required argument
+    > `<arg>` = Required argument
+    > `[arg]` = NOT Required argument
     """
 
     def __init__(self, bot):

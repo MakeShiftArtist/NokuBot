@@ -135,9 +135,10 @@ class Misc(commands.Cog):
                 return
 
     @commands.command(
-        name="Embed", brief="Creates a custom embed",
+        name="Embed",
+        brief="Creates a custom embed",
         help="Creates a custom embed with a title, description and fields.",
-        usage="[title] <description>`\n> `<field title | field description>"
+        usage="[title] <description>`\n> `<field title | field description>",
         )
     async def send_embed(self, ctx, title=None, *, desc=None):
         try:
@@ -184,10 +185,12 @@ class Misc(commands.Cog):
         return await ctx.send(embed=embed)
 
     @commands.group(
-        name="Tag", brief="Custom tags command",
+        name="Tag",
+        brief="Custom tags command",
         help="Lets you create a tag, delete a tag, or change a tag.",
         usage="tag <create | change | delete>",
-        invoke_without_command=True, case_insensitive=True
+        invoke_without_command=True,
+        case_insensitive=True,
         )
     @commands.check_any(commands.is_owner(), Checks.manage_tags())
     async def tag_group(self, ctx, arg):
@@ -202,9 +205,10 @@ class Misc(commands.Cog):
             return await ctx.send(f"Tag {arg} does not exist")
 
     @tag_group.command(
-        name="create", brief="Creates a tag",
-        usage="`tag create [tag name] [tag response]`",
-        help="Creates a new tag for `-tag`"
+        name="create",
+        brief="Creates a tag",
+        usage="`tag create <tag name> <tag response>`",
+        help="Creates a new tag for `-tag`",
         )
     @commands.check_any(commands.is_owner(), Checks.manage_tags())
     async def make_tag(self, ctx, name=None, *, value=None):
@@ -248,7 +252,7 @@ class Misc(commands.Cog):
     @tag_group.command(
         name="Change", brief="Lets you edit a tag",
         help="Edits a tag from the current list of tags",
-        usage="tag change [tag name] [tag response]",
+        usage="<tag name> <tag response>",
         alises=['edit']
         )
     @commands.check_any(commands.is_owner(), Checks.manage_tags())
@@ -257,7 +261,7 @@ class Misc(commands.Cog):
             return await ctx.send("I need a name and a new response to edit a tag")
         try:
             name = Formatting.tag_format(name, "Name")
-            name = Formatting.tag_format(value)
+            value = Formatting.tag_format(value)
         except Exception as e:
             return await ctx.send(e)
         try:
