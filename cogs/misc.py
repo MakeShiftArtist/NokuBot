@@ -1,7 +1,7 @@
 from discord.ext import commands
 from src import database
 from src.functions import Colors, Formatting
-from discord import Embed
+import discord
 import re
 
 
@@ -155,12 +155,12 @@ class Misc(commands.Cog):
             embed = discord.Embed(
                 title=title,
                 description=extra[0],
-                color=Common_info.blue
+                color=self.colors()
                 )
         except Exception:
             embed = discord.Embed(
                 title=title,
-                color=Common_info.blue
+                color=self.colors()
                 )
         for field in extra[1:]:
             data = re.split(r"((?<!\\)(\s\|\s|\s\||\|\s|\|))", field)
@@ -274,6 +274,15 @@ class Misc(commands.Cog):
         finally:
             if exists:
                 return await ctx.send("Tag {name} was edited")
+
+    @commands.command(name='Ping',brief='Checks bot latency', usage='Ping',
+    help="Checks the bot's latency to the server in milliseconds")
+    async def ping_c(self, ctx):
+        ping_embed = discord.Embed(
+            title = f'Pong! {round(self.bot.latency * 1000)}ms',
+            color=self.colors()
+            )
+        await ctx.send(embed=ping_embed)
 
 def setup(bot):
     bot.add_cog(Misc(bot))
