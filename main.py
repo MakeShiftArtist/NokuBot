@@ -54,13 +54,13 @@ async def on_command_error(ctx, error):
         time = round(error.retry_after*100)/100
         error = f"Command is on cooldown for {time} seconds"
         try:
-            embed = embeds.eror_embed(ctx, error)
+            embed = await embeds.error_embed(ctx, error)
             return await ctx.send(embed=embed)
         except Exception as e:
             return print(e)
     else:
         try:
-            embed = embeds.eror_embed(ctx, error)
+            embed = await embeds.error_embed(ctx, error)
             return await ctx.send(embed=embed)
         except Exception as e:
             return print(e)
