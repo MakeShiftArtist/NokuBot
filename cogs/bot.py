@@ -10,14 +10,14 @@ class HelpObject:
     """
 
     def __init__(self, bot):
-        self.color = Colors()
+        self.colors = Colors()
         self.bot = bot
 
     def __call__(self, ctx, prefix="-"):
         embed = Embed(
             title="Help",
             description=HelpObject.__doc__,
-            color=self.color()
+            color=self.colors()
         )
         for cog in self.bot.cogs:
             if cog == "Help":
@@ -40,12 +40,14 @@ class HelpObject:
         embed = Embed(
             title=cog.qualified_name,
             description=cog.description,
-            color=self.color()
+            color=self.colors()
         )
         cmds = cog.get_commands()
         for cmd in cmds:
             if cmd.hidden:
                 continue
+
+            runnable = True
 
             for check in cmd.checks:
                 try:
@@ -83,7 +85,7 @@ class HelpObject:
             embed = Embed(
                 title=cmd.name.capitalize(),
                 description=cmd.help,
-                color=self.color()
+                color=self.colors()
             )
             embed.add_field(
                 name="Usage", value=f"-{cmd.name} {cmd.usage}"
