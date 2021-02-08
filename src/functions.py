@@ -147,10 +147,14 @@ class CustomEmbed:
         self.date = DatetimeCommon()
         self.xmoji = lambda x: '\U0000274c ' + x
 
-    async def eror_embed(self, ctx, error):
+    async def error_embed(self, ctx, error):
+        try:
+            desc = error.original
+        except AttributeError:
+            desc = error
         embed = Embed(
             title=self.xmoji(f"{ctx.command} failed"),
-            description=error,
+            description=desc,
             color=self.colors.red
         )
         return embed
